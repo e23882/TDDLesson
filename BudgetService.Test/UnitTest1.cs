@@ -1,7 +1,7 @@
 using NSubstitute;
 using NUnit.Framework;
 
-namespace BudgetService
+namespace BudgetService.Test
 {
     public class Tests
     {
