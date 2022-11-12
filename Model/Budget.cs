@@ -1,6 +1,6 @@
 ﻿namespace BudgetService
 {
-    public abstract class Budget
+    public class Budget
     {
         #region Property
         /// <summary>
