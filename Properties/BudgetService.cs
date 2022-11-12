@@ -41,6 +41,25 @@ namespace BudgetService
                 int amount = repo.GetAll().Where(x => x.YearMonth == startDateTime.ToString("yyyyMM")).FirstOrDefault().Amount;
                 return amount / monthDays * days;
             }
+            else
+            {
+                
+                int startMonthDays = DateTime.DaysInMonth(startDateTime.Year, startDateTime.Month);
+                int startDays = startMonthDays - startDateTime.Day + 1;
+                int startAmount = repo.GetAll().Where(x => x.YearMonth == startDateTime.ToString("yyyyMM")).FirstOrDefault().Amount / startMonthDays * startDays;
+                
+
+                int endMonthDays = DateTime.DaysInMonth(endDateTime.Year, endDateTime.Month);
+                int endAmount = repo.GetAll().Where(x => x.YearMonth == endDateTime.ToString("yyyyMM")).FirstOrDefault().Amount / endMonthDays * endDateTime.Day;
+                return startAmount + endAmount;
+            }
+
+
+            //if(startDateTime.Year == endDateTime.Year && (endDateTime.Month-startDateTime.Month) == 1 )
+            //{
+            //    int startMonthDays = DateTime.DaysInMonth(startDateTime.Year, startDateTime.Month);
+
+            //}
 
             return result;
             //repo.GetAll().Where(x=>x.YearMonth )
