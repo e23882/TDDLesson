@@ -58,7 +58,7 @@ namespace BudgetService
                 }
                 else
                 {
-                    int multiAmount = repo.GetAll().Where(x => int.Parse(x.YearMonth) > int.Parse(startDateTime.ToString("yyyyMM")) && int.Parse(x.YearMonth) < int.Parse(endDateTime.ToString("yyyyMM"))).Sum(x=>x.Amount) / endMonthDays * endDateTime.Day;
+                    int multiAmount = repo.GetAll().Where(x => int.Parse(x.YearMonth) > int.Parse(startDateTime.ToString("yyyyMM")) && int.Parse(x.YearMonth) < int.Parse(endDateTime.ToString("yyyyMM"))).Sum(x=>x.Amount);
                     return startAmount + endAmount + multiAmount;
                 }
             }
