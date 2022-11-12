@@ -38,7 +38,7 @@ namespace BudgetService
             {
                 int days = (endDateTime - startDateTime).Days + 1;
                 int monthDays = DateTime.DaysInMonth(startDateTime.Year, startDateTime.Month);
-                int amount = repo.GetAll().Where(x => x.YearMonth == startDateTime.ToString("yyyyMM")).FirstOrDefault().Amount;
+                int amount = repo.GetAll().Where(x => x.YearMonth == startDateTime.ToString("yyyyMM")).Sum(x=>x.Amount);
                 return amount / monthDays * days;
             }
             else
@@ -46,11 +46,11 @@ namespace BudgetService
                 
                 int startMonthDays = DateTime.DaysInMonth(startDateTime.Year, startDateTime.Month);
                 int startDays = startMonthDays - startDateTime.Day + 1;
-                int startAmount = repo.GetAll().Where(x => x.YearMonth == startDateTime.ToString("yyyyMM")).FirstOrDefault().Amount / startMonthDays * startDays;
+                int startAmount = repo.GetAll().Where(x => x.YearMonth == startDateTime.ToString("yyyyMM")).Sum(x => x.Amount) / startMonthDays * startDays;
                 
 
                 int endMonthDays = DateTime.DaysInMonth(endDateTime.Year, endDateTime.Month);
-                int endAmount = repo.GetAll().Where(x => x.YearMonth == endDateTime.ToString("yyyyMM")).FirstOrDefault().Amount / endMonthDays * endDateTime.Day;
+                int endAmount = repo.GetAll().Where(x => x.YearMonth == endDateTime.ToString("yyyyMM")).Sum(x => x.Amount) / endMonthDays * endDateTime.Day;
                 
                 if(startDateTime.AddMonths(1) == endDateTime)
                 {
