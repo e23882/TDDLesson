@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BudgetService
 {
@@ -18,17 +15,8 @@ namespace BudgetService
             this.repo = repo;
         }
 
-        public decimal Query(string startDate, string endDate)
+        public decimal Query(DateTime startDateTime, DateTime endDateTime)
         {
-            decimal result = 0;
-            DateTime startDateTime = new DateTime(
-                int.Parse(startDate.Substring(0, 4)),
-                int.Parse(startDate.Substring(4, 2)),
-                int.Parse(startDate.Substring(6, 2)));
-            DateTime endDateTime = new DateTime(
-                int.Parse(endDate.Substring(0, 4)),
-                int.Parse(endDate.Substring(4, 2)),
-                int.Parse(endDate.Substring(6, 2)));
             if (endDateTime < startDateTime)
             {
                 return 0;
@@ -43,14 +31,16 @@ namespace BudgetService
             }
             else
             {
-                
                 int startMonthDays = DateTime.DaysInMonth(startDateTime.Year, startDateTime.Month);
                 int startDays = startMonthDays - startDateTime.Day + 1;
-                int startAmount = repo.GetAll().Where(x => x.YearMonth == startDateTime.ToString("yyyyMM")).Sum(x => x.Amount) / startMonthDays * startDays;
+                int startAmount = repo.GetAll()
+                    .Where(x => x.YearMonth == startDateTime.ToString("yyyyMM"))
+                    .Sum(x => x.Amount) / startMonthDays * startDays;
                 
-
                 int endMonthDays = DateTime.DaysInMonth(endDateTime.Year, endDateTime.Month);
-                int endAmount = repo.GetAll().Where(x => x.YearMonth == endDateTime.ToString("yyyyMM")).Sum(x => x.Amount) / endMonthDays * endDateTime.Day;
+                int endAmount = repo.GetAll()
+                    .Where(x => x.YearMonth == endDateTime.ToString("yyyyMM"))
+                    .Sum(x => x.Amount) / endMonthDays * endDateTime.Day;
                 
                 if(startDateTime.AddMonths(1) == endDateTime)
                 {
@@ -62,16 +52,6 @@ namespace BudgetService
                     return startAmount + endAmount + multiAmount;
                 }
             }
-
-
-            //if(startDateTime.Year == endDateTime.Year && (endDateTime.Month-startDateTime.Month) == 1 )
-            //{
-            //    int startMonthDays = DateTime.DaysInMonth(startDateTime.Year, startDateTime.Month);
-
-            //}
-
-            return result;
-            //repo.GetAll().Where(x=>x.YearMonth )
         }
         #endregion
     }

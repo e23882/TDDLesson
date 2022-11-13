@@ -1,3 +1,4 @@
+using System;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -27,7 +28,9 @@ namespace BudgetService.Test
                 new Budget(){YearMonth = "202202", Amount = 28},
                 new Budget(){YearMonth = "202201", Amount = 31},
             });
-            decimal amount = _service.Query("20220501", "20220101");
+            decimal amount = _service.Query(
+                new DateTime(2022, 5, 1), 
+                new DateTime(2022, 1, 1));
             Assert.Zero(amount);
         }
 
@@ -40,7 +43,9 @@ namespace BudgetService.Test
                 new Budget(){YearMonth = "202202", Amount = 28},
                 new Budget(){YearMonth = "202201", Amount = 31},
             });
-            decimal amount = _service.Query("20220301", "20220318");
+            decimal amount = _service.Query(
+                new DateTime(2022, 3, 1), 
+                new DateTime(2022, 3, 18));
             Assert.Zero(amount);
         }
 
@@ -52,7 +57,9 @@ namespace BudgetService.Test
                 new Budget(){YearMonth = "202202", Amount = 28},
                 new Budget(){YearMonth = "202201", Amount = 31},
             });
-            decimal amount = _service.Query("20220101", "20220131");
+            decimal amount = _service.Query(
+                new DateTime(2022, 1, 1), 
+                new DateTime(2022, 1, 31));
             Assert.AreEqual(amount, 31);
 
         }
@@ -64,7 +71,9 @@ namespace BudgetService.Test
                 new Budget(){YearMonth = "202202", Amount = 28},
                 new Budget(){YearMonth = "202201", Amount = 31},
             });
-            decimal amount = _service.Query("20220101", "20220228");
+            decimal amount = _service.Query(
+                new DateTime(2022, 1, 1), 
+                new DateTime(2022, 2, 28));
             Assert.AreEqual(amount, 59);
         }
 
@@ -77,7 +86,9 @@ namespace BudgetService.Test
                 new Budget(){YearMonth = "202202", Amount = 28},
                 new Budget(){YearMonth = "202201", Amount = 31},
             });
-            decimal amount = _service.Query("20220201", "20220430");
+            decimal amount = _service.Query(
+                new DateTime(2022, 2, 1), 
+                new DateTime(2022, 4, 30));
             Assert.AreEqual(amount, 58);
         }
 
@@ -90,7 +101,9 @@ namespace BudgetService.Test
                 new Budget(){YearMonth = "202202", Amount = 28},
                 new Budget(){YearMonth = "202201", Amount = 31},
             });
-            decimal amount = _service.Query("20220228", "20220410");
+            decimal amount = _service.Query(
+                new DateTime(2022, 2, 28), 
+                new DateTime(2022, 4, 10));
             Assert.AreEqual(amount, 1+31+10);
         }
         #endregion
