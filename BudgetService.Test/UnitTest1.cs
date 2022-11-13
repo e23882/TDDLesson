@@ -1,4 +1,6 @@
 using System;
+using BudgetService.Interface;
+using BudgetService.Model;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -7,7 +9,7 @@ namespace BudgetService.Test
     public class Tests
     {
         #region Declarations
-        BudgetService _service = null;
+        Service.BudgetService _service = null;
         private IBudgetRepo _repo = null;
         #endregion
 
@@ -16,7 +18,7 @@ namespace BudgetService.Test
         public void Setup()
         {
             _repo = Substitute.For<IBudgetRepo>();
-            _service = new BudgetService(_repo);
+            _service = new Service.BudgetService(_repo);
         }
 
         [TestCase]

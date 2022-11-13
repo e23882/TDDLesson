@@ -1,4 +1,4 @@
-﻿namespace BudgetService
+﻿namespace BudgetService.Model
 {
     public class Budget
     {

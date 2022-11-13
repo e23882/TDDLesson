@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using BudgetService.Model;
 
-namespace BudgetService
+namespace BudgetService.Interface
 {
     public interface IBudgetRepo
     {
